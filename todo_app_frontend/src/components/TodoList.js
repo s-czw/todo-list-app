@@ -27,6 +27,13 @@ const TodoList = ({
     setFilteredTodos(todos);
   }, [todos]);
 
+  const onSortModalClose = () => {
+    setPrioritySort(0);
+    setStatusSort(0);
+    setDueDateSort(0);
+    setIsSortModalOpen(false);
+  }
+
   const handleDelete = (id, e) => {
     if(e && e.stopPropagation) e.stopPropagation();
 
@@ -69,7 +76,7 @@ const TodoList = ({
           priorityFilter={priorityFilter} setPriorityFilter={setPriorityFilter} />
       </Modal>
       {/* Sort Modal */}
-      <Modal isOpen={isSortModalOpen} onClose={() => setIsSortModalOpen(false)}>
+      <Modal isOpen={isSortModalOpen} onClose={() => onSortModalClose()}>
         <h2 className="text-xl font-bold mb-4">Sort Todos</h2>
         <SortForm filteredTodos={filteredTodos} setFilteredTodos={setFilteredTodos} setIsSortModalOpen={setIsSortModalOpen}
           prioritySort={prioritySort} setPrioritySort={setPrioritySort}
