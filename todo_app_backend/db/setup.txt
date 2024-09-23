@@ -1,0 +1,6 @@
+// start the app
+npm start
+
+// run database seeding in todo_app_backend directory
+cd ./todo_app_backend
+node db/seed.js
