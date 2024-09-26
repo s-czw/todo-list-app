@@ -3,6 +3,8 @@ import TodoItem from './TodoItem';
 import { deleteRequest } from '../utils/apiUtils';
 import TuneIcon from '@mui/icons-material/Tune';
 import SortIcon from '@mui/icons-material/Sort';
+import GroupsIcon from '@mui/icons-material/Groups';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Modal from './Modal';
 import SearchForm from './SearchForm';
 import SortForm from './SortForm';
@@ -10,7 +12,9 @@ import SortForm from './SortForm';
 const TodoList = ({
   todos,
   setTodos,
-  onSelectTodo
+  onSelectTodo,
+  isSharedList,
+  setIsSharedList
 }) => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isSortModalOpen, setIsSortModalOpen] = useState(false);
@@ -34,6 +38,10 @@ const TodoList = ({
     setIsSortModalOpen(false);
   }
 
+  const handleListMode = (mode) => {
+    setIsSharedList(mode === 1 ? true : false);
+  }
+
   const handleDelete = (id, e) => {
     if(e && e.stopPropagation) e.stopPropagation();
 
@@ -49,13 +57,26 @@ const TodoList = ({
   return (
     <div>
       <div className='flex justify-end pb-3 px-2 space-x-2'>
-        <h2 className='flex-1 text-xl font-bold mb-4'>Your TODOs</h2>
+        <div className='flex-1 flex text-xl font-bold mb-4 space-x-2'>
+          <h2 className='pt-1'>{isSharedList ? 'Shared TODOs' : 'Your TODOs'}</h2>
+          {!isSharedList ? (
+            <div className='flex flex-col icon-blue cursor-pointer' onClick={() => handleListMode(1)}>
+              <GroupsIcon className='mx-auto' />
+              <label className='text-xs underline'>shared</label>
+            </div>
+          ) : (
+            <div className='flex flex-col icon-gray cursor-pointer' onClick={() => handleListMode(0)}>
+              <AccountBoxIcon className='mx-auto' />
+              <label className='text-xs underline'>yours</label>
+            </div>
+          )}
+        </div>
         <div className='flex flex-col cursor-pointer' onClick={() => setIsSearchModalOpen(true)}>
-          <TuneIcon className='icon-large icon-grey' />
+          <TuneIcon className='icon-gray' />
           <label className='text-xs'>filter</label>
         </div>
         <div className='flex flex-col cursor-pointer' onClick={() => setIsSortModalOpen(true)}>
-          <SortIcon className='icon-large icon-grey' />
+          <SortIcon className='icon-gray' />
           <label className='text-xs'>sort</label>
         </div>
       </div>

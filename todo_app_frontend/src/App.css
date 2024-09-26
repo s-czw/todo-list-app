@@ -41,10 +41,6 @@
   }
 }
 
-.icon-large {
-  font-size: 10px;
-}
-
 .icon-red {
   color: rgb(201, 57, 57);
 }
@@ -53,13 +49,37 @@
   color: rgb(116, 25, 25);
 }
 
-.icon-grey {
+.icon-blue {
+  color: rgb(27, 85, 179);
+}
+
+.icon-blue:hover {
+  color: rgb(39, 97, 190);
+}
+
+.icon-gray {
   color: rgb(59, 59, 59);
 }
 
-.icon-grey:hover {
+.icon-gray:hover {
   color: rgb(92, 92, 92);
   transform: scale(105%);
+}
+
+.item-gray {
+  @apply bg-gray-200
+}
+
+.item-gray:hover {
+  @apply bg-gray-300
+}
+
+.item-border-blue {
+  @apply border-double border-2 border-blue-300
+}
+
+.item-border-blue:hover {
+  @apply border-blue-400
 }
 
 .sort-button {

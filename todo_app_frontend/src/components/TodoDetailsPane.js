@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { putRequest } from '../utils/apiUtils';
 import CloseIcon from '@mui/icons-material/Close';
+import FeedIcon from '@mui/icons-material/Feed';
+import Modal from './Modal';
+import ActivityFeed from '../pages/ActivityFeed';
 
 const TodoDetailsPane = ({
   todo,
-  setSelectedTodo,
-  setIsUpdated
+  setSelectedTodo
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [status, setStatus] = useState('');
+  const [isActivityModalOpen, setIsActivityModalOpen] = useState(false);
 
   useEffect(() => {
     setName(todo.name);
@@ -34,21 +37,25 @@ const TodoDetailsPane = ({
     todo.dueDate = dueDate;
     todo.status = status;
     putRequest(`/todos/${todo._id}`, todo)
-      .then(() => {
-        setIsUpdated(true);
+      .then(updatedTodo => {
+        setSelectedTodo(updatedTodo);
       })
       .catch(error => console.error('Error update TODO:', error));
   }
 
   return (
     <form onSubmit={handleUpdate} className='mb-4'>
-      <div className='flex mb-4'>
-        <div className='flex-1'><h2 className='text-xl font-bold'>TODO Details</h2></div>
+      <div className='flex mb-1'>
+        <div className='flex flex-1'><h2 className='text-xl font-bold'>TODO Details</h2></div>
         <CloseIcon onClick={exitDetails} className='icon-red cursor-pointer' />
+      </div>
+      <div className='mb-3 space-x-1 cursor-pointer' onClick={() => setIsActivityModalOpen(true)}>
+        <FeedIcon className='icon-gray' />
+        <label className='icon-gray text-sm underline cursor-pointer'>activity feed</label>
       </div>
       <div className='mb-4'>
         <label className='block text-gray-700'>ID</label>
-        <div>{todo._id}</div>
+        <div className='text-gray-700'>{todo._id}</div>
       </div>
       <div className='mb-4'>
         <label className='block text-gray-700'>Name</label>
@@ -113,6 +120,11 @@ const TodoDetailsPane = ({
       >
         Update TODO
       </button>
+      {/* Activity Feed Modal */}
+      <Modal isOpen={isActivityModalOpen} onClose={() => setIsActivityModalOpen(false)}>
+        <h2 className='text-xl font-bold mb-4'>Activity Feed</h2>
+        <ActivityFeed todoId={todo._id} />
+      </Modal>
     </form>
   );
 }

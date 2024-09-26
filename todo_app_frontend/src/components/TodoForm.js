@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import { postRequest } from '../utils/apiUtils';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 const TodoForm = ({
-  setTodos
+  setIsUpdated
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('Low');
   const [dueDate, setDueDate] = useState('');
+  const [isShared, setIsShared] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newTodo = { name, description, priority, dueDate };
+    const newTodo = { name, description, priority, dueDate, isShared };
     postRequest('/todos', newTodo)
-      .then(data => {
-        setTodos((prev) => [...prev, data]);
+      .then(() => {
+        setIsUpdated(true);
         setName('');
         setDescription('');
         setPriority('Low');
         setDueDate('');
+        setIsShared(false);
       })
       .catch(error => console.error('Error adding TODO:', error));
   };
@@ -69,6 +72,12 @@ const TodoForm = ({
           className='w-full p-2 border border-gray-300 rounded mt-1'
           required
         />
+      </div>
+      <div className='mb-4'>
+        <FormControlLabel
+          label='Share with team'
+          className='text-gray-700'
+          control={<Checkbox checked={isShared} onChange={(e) => setIsShared(e.target.checked)} />} />
       </div>
       <button
         type='submit'

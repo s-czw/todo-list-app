@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const TodoItem = ({
@@ -6,10 +6,17 @@ const TodoItem = ({
   onSelectTodo,
   handleDelete
 }) => {
+  const [hasChanges, setHasChanges] = useState(false);
+
+  const handleSelectTodo = (todo) => {
+    onSelectTodo(todo);
+    setHasChanges(false);
+  }
+
   return (
     <li
-      className='p-4 bg-gray-50 shadow-md rounded flex justify-between items-center cursor-pointer hover:bg-gray-100'
-      onClick={() => onSelectTodo(todo)}
+      className={`p-4 shadow-md item-gray rounded flex justify-between items-center cursor-pointer ${hasChanges ? 'item-border-blue' : ''}`}
+      onClick={() => handleSelectTodo(todo)}
     >
       <div>
         <h3 className='font-bold'>{todo.name}</h3>
