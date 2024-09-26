@@ -71,7 +71,7 @@ const TodoListPage = () => {
   };
 
   return (
-    <div className='flex max-w-7xl mx-auto p-4 space-x-6'>
+    <div className='flex flex-wrap max-w-7xl mx-auto p-4 lg:space-x-6'>
       {/* Logout button */}
       <button
         onClick={handleLogout}
@@ -80,7 +80,7 @@ const TodoListPage = () => {
       </button>
 
       {/* TODO List */}
-      <div className='w-1/3 bg-white shadow-lg rounded-lg p-6' style={{maxHeight: '660px'}}>
+      <div className='w-full lg:w-1/3 mb-10 bg-white shadow-lg rounded-lg p-6' style={{maxHeight: '660px'}}>
         <TodoList
           todos={todos}
           setTodos={setTodos}
@@ -90,7 +90,7 @@ const TodoListPage = () => {
       </div>
 
       {/* Details Pane */}
-      <div className='w-1/3 h-fit bg-white shadow-lg rounded-lg p-6'>
+      <div className='w-full lg:w-1/3 mb-10 h-fit bg-white shadow-lg rounded-lg p-6'>
         {selectedTodo ? (
           <TodoDetailsPane todo={selectedTodo} setSelectedTodo={setSelectedTodo} />
         ) : (
@@ -99,7 +99,7 @@ const TodoListPage = () => {
       </div>
 
       {/* TODO Form */}
-      <div className='w-1/4 h-fit bg-white shadow-lg rounded-lg p-6'>
+      <div className='w-full lg:w-1/4 h-fit bg-white shadow-lg rounded-lg p-6'>
         <TodoForm setIsUpdated={setIsUpdated} />
       </div>
     </div>
