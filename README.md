@@ -20,6 +20,12 @@ npm start
 cd ./todo_app_backend
 node db/seed.js
 ```
+3. after seeding, login using
+- *admin@email.com*
+- _password123_
+or
+- *test@email.com*
+- _test123_
 
 ## To start individually
 Backend:
