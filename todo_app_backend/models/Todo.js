@@ -6,6 +6,7 @@ const todoSchema = new mongoose.Schema({
   dueDate: { type: Date, required: true },
   status: { type: String, required: true, enum: ['NotStarted', 'InProgress', 'Completed'], default: 'NotStarted' },
   priority: { type: String, required: true, enum: ['High', 'Medium', 'Low'], default: 'Low' },
+  isShared: { type: Boolean, requried: true, default: false },
   createdAt: { type: Date, required: true, default: new Date() },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });

@@ -17,12 +17,19 @@ mongoose.connect(process.env.MONGO_URI, {
   await Todo.deleteMany({});
 
   // Create a new user
-  const user = new User({
+  const user1 = new User({
     email: 'admin@email.com',
     password: 'password123',
     role: 'Admin'
   });
-  await user.save();
+  await user1.save();
+
+  const user2 = new User({
+    email: 'test@email.com',
+    password: 'test123',
+    role: 'User'
+  });
+  await user2.save();
 
   // Create sample TODOs
   const todos = [
@@ -32,7 +39,8 @@ mongoose.connect(process.env.MONGO_URI, {
       dueDate: new Date('2024-09-30'),
       status: 'NotStarted',
       priority: 'Medium',
-      createdBy: user._id
+      isShared: false,
+      createdBy: user1._id
     },
     {
       name: 'Second TODO',
@@ -40,7 +48,8 @@ mongoose.connect(process.env.MONGO_URI, {
       dueDate: new Date('2024-10-15'),
       status: 'InProgress',
       priority: 'High',
-      createdBy: user._id
+      isShared: false,
+      createdBy: user1._id
     },
     {
       name: 'Third TODO',
@@ -48,7 +57,8 @@ mongoose.connect(process.env.MONGO_URI, {
       dueDate: new Date('2024-10-17'),
       status: 'InProgress',
       priority: 'Low',
-      createdBy: user._id
+      isShared: false,
+      createdBy: user1._id
     },
     {
       name: 'Forth TODO',
@@ -56,7 +66,8 @@ mongoose.connect(process.env.MONGO_URI, {
       dueDate: new Date('2024-10-15'),
       status: 'InProgress',
       priority: 'High',
-      createdBy: user._id
+      isShared: false,
+      createdBy: user1._id
     },
     {
       name: 'Fifth TODO',
@@ -64,7 +75,8 @@ mongoose.connect(process.env.MONGO_URI, {
       dueDate: new Date('2024-10-15'),
       status: 'InProgress',
       priority: 'High',
-      createdBy: user._id
+      isShared: false,
+      createdBy: user1._id
     },
     {
       name: 'Sixth TODO',
@@ -72,7 +84,26 @@ mongoose.connect(process.env.MONGO_URI, {
       dueDate: new Date('2024-11-15'),
       status: 'InProgress',
       priority: 'High',
-      createdBy: user._id
+      isShared: true,
+      createdBy: user1._id
+    },
+    {
+      name: 'User First TODO',
+      description: 'This is the user first TODO item',
+      dueDate: new Date('2024-09-29'),
+      status: 'Completed',
+      priority: 'Low',
+      isShared: true,
+      createdBy: user2._id
+    },
+    {
+      name: 'User Second TODO',
+      description: 'This is the user second TODO item',
+      dueDate: new Date('2024-10-15'),
+      status: 'InProgress',
+      priority: 'Low',
+      isShared: true,
+      createdBy: user2._id
     }
   ];
 
